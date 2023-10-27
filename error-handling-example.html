@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const calcWeightIndex = (weight, height) => {
+        const result = ((weight) / (height ** 2)).toFixed(2);
+        return Number(result);
+        }
+        const weightIndex = calcWeightIndex(90, 1.9);
+        console.log(weightIndex);
+    </script>
+</body>
+</html>
