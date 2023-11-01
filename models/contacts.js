@@ -25,6 +25,7 @@ export const addContact = async ({ name, email, phone }) => {
         phone,
     }
     contacts.push(newContact)
+    await updateContacts(contacts)
     return newContact
 }
 
