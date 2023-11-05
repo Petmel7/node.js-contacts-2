@@ -1,21 +1,24 @@
 import express from 'express';
 import contactsControler from '../../controlers/contacts-controler.js';
-import { isEmptyBody } from "../../middlewares/index.js";
+import { isEmptyBody, isValidId } from "../../middlewares/index.js";
 import { validateBody } from "../../decorators/index.js";
-import { contactsAddSchema } from "../../schemas/contacts-schemas.js";
+import { contactsAddSchema, contactUpdateFavoriteSchema } from "../../models/contact.js";
 
 const contactsAddValidate = validateBody(contactsAddSchema);
+const contactoUpdateFavoriteSchema = validateBody(contactUpdateFavoriteSchema);
 
 const router = express.Router();
 
-router.get('/', contactsControler.getContactsAll)
+router.get('/', contactsControler.getContactsAll);
 
-// router.get('/:contactId', contactsControler.getContactsById);
+router.get('/:contactId', isValidId, contactsControler.getContactsById);
 
-// router.post('/', isEmptyBody, contactsAddValidate, contactsControler.addContacts)
+router.post('/', isEmptyBody, contactsAddValidate, contactsControler.addContacts);
 
-// router.put('/:contactId', isEmptyBody, contactsAddValidate, contactsControler.updateContactsById)
+router.put('/:contactId', isValidId, isEmptyBody, contactsAddValidate, contactsControler.updateContactsById);
 
-// router.delete('/:contactId', contactsControler.deleteContactsById)
+router.patch('/:contactId/favorite', isValidId, isEmptyBody, contactoUpdateFavoriteSchema, contactsControler.updateFavoriteContactsById);
+
+router.delete('/:contactId', isValidId, contactsControler.deleteContactsById);
 
 export default router;
